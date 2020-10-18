@@ -9,7 +9,10 @@ function App() {
   // useState - set shot term memory
   // set up a basic variable in react
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState(["hi"]);
+  const [messages, setMessages] = useState([
+    {username: 'test' , text: 'hey'},
+    {username:'test2', text:"yoo"}
+  ]);
   const [username,setUsername] = useState("");
 
   // useEfect - snipet of code that gets executed on a condition
@@ -30,7 +33,7 @@ function App() {
     event.preventDefault();
 
     // all the logic to send the message goes here
-    setMessages([...messages, input]);
+    setMessages([...messages, {username: username, text: input}]);
     setInput("");
   };
 
@@ -62,7 +65,7 @@ function App() {
       {/* messages */}
 
       {messages.map((message) => (
-        <Message text={message} />
+        <Message message={message} username={username} />
       ))}
     </div>
   );
