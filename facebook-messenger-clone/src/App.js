@@ -2,23 +2,33 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import { Button, FormControl, Input, InputLabel } from "@material-ui/core";
 import Message from "./Message";
-import db from "./firebase";
+import { db, auth } from "./firebase";
 import firebase from "firebase";
+
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import SignIn from "./SignIn";
+import SignOut from "./SignOut";
+import ChatRoom from "./ChatRoom";
 
 function App() {
   // useState - set shot term memory
   // set up a basic variable in react
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("koko");
+
+  // db, auth imported from firebase.js
+  const [user] = useAuthState(auth);
 
   // useEfect - snipet of code that gets executed on a condition
-  useEffect(() => {
-    //run code here..
-    // if it`s blank inside [], this code runs ONCE when the app component loads
 
-    setUsername(prompt("Please enter your name"));
-  }, []); // condition
+  // useEffect(() => {
+  //   //run code here..
+  //   // if it`s blank inside [], this code runs ONCE when the app component loads
+
+  //   setUsername(prompt("Please enter your name"));
+  // }, []); // condition
 
   useEffect(() => {
     // run once when app component loads
@@ -29,10 +39,11 @@ function App() {
     //   console.log(`------------`)
     //   setMessages(snapshot.docs.map(doc => doc.data))
     // })
+
     db.collection("messages")
       .get()
       .then((querySnapshot) => {
-        console.log( querySnapshot.docs.map((doc) => doc.data))
+        console.log(querySnapshot.docs.map((doc) => doc.data));
         setMessages(
           querySnapshot.docs.map((doc) => doc.data)
           // .forEach((doc) => {
@@ -60,9 +71,13 @@ function App() {
 
   return (
     <div className="App">
-      <h1>hello</h1>
-      <h2> Wellcome {username}</h2>
-
+      <header></header>
+      <section>
+        {user ? `${auth.currentUser}` : "not signed in"}
+        {user ? <SignOut /> : <SignIn />}
+      </section>
+      <ChatRoom/>
+      
       <form>
         <FormControl>
           <InputLabel>Enter a message..</InputLabel>
@@ -83,9 +98,9 @@ function App() {
       </form>
       {/* messages */}
 
-      {messages.map((message) => (
+      {/* {messages.map((message) => (
         <Message message={message} username={username} />
-      ))}
+      ))} */}
     </div>
   );
 }
