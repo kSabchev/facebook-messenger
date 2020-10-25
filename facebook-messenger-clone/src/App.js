@@ -14,13 +14,13 @@ import ChatRoom from "./ChatRoom";
 function App() {
   // useState - set shot term memory
   // set up a basic variable in react
-  const [input, setInput] = useState("");
+  // const [input, setInput] = useState("");
   const [messages, setMessages] = useState([]);
-  const [username, setUsername] = useState("koko");
+  // const [username, setUsername] = useState("koko");
 
   // db, auth imported from firebase.js
   const [user] = useAuthState(auth);
-
+  
   // useEfect - snipet of code that gets executed on a condition
 
   // useEffect(() => {
@@ -30,53 +30,53 @@ function App() {
   //   setUsername(prompt("Please enter your name"));
   // }, []); // condition
 
-  useEffect(() => {
-    // run once when app component loads
+  // useEffect(() => {
+  //   // run once when app component loads
 
-    // db.collection('messages').onSnapshot(snapshot =>{
-    //   console.log(`------------`)
-    //   console.log(snapshot.docs)
-    //   console.log(`------------`)
-    //   setMessages(snapshot.docs.map(doc => doc.data))
-    // })
+  //   // db.collection('messages').onSnapshot(snapshot =>{
+  //   //   console.log(`------------`)
+  //   //   console.log(snapshot.docs)
+  //   //   console.log(`------------`)
+  //   //   setMessages(snapshot.docs.map(doc => doc.data))
+  //   // })
 
-    db.collection("messages")
-      .get()
-      .then((querySnapshot) => {
-        console.log(querySnapshot.docs.map((doc) => doc.data));
-        setMessages(
-          querySnapshot.docs.map((doc) => doc.data)
-          // .forEach((doc) => {
-          // console.log(doc.data());
-        );
-      });
-  }, []);
+  //   db.collection("myMessages")
+  //     .get()
+  //     .then((querySnapshot) => {
+  //       // console.log(querySnapshot.docs.map((doc) => doc.data));
+  //       setMessages(
+  //         querySnapshot.docs.map((doc) => doc.data)
+  //         // .forEach((doc) => {
+  //         // console.log(doc.data());
+  //       );
+  //     });
+  // }, []);
 
   // console.log(input);
   // console.log(messages);
 
-  const sendMessage = (event) => {
-    event.preventDefault();
+  // const sendMessage = (event) => {
+  //   event.preventDefault();
 
-    db.collection("myMessages").add({
-      message: input,
-      username: username,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
+  //   db.collection("myMessages").add({
+  //     message: input,
+  //     username: username,
+  //     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  //   });
 
-    // all the logic to send the message goes here
-    // setMessages([...messages, {username: username, message: input}]);
-    setInput("");
-  };
+  //   // all the logic to send the message goes here
+  //   // setMessages([...messages, {username: username, message: input}]);
+  //   setInput("");
+  // };
 
   return (
     <div className="App">
       <header></header>
       <section>
-        {user ? `${auth.currentUser}` : "not signed in"}
+        {/* {user ? `${auth.currentUser}` : "not signed in"} */}
         {user ? <SignOut /> : <SignIn />}
       </section>
-      <ChatRoom />
+      <ChatRoom/>
 
       {/* CleverProgrammer */}
       {/* <form>
