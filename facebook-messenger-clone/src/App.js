@@ -58,7 +58,7 @@ function App() {
   const sendMessage = (event) => {
     event.preventDefault();
 
-    db.collection("messages").add({
+    db.collection("myMessages").add({
       message: input,
       username: username,
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -76,9 +76,10 @@ function App() {
         {user ? `${auth.currentUser}` : "not signed in"}
         {user ? <SignOut /> : <SignIn />}
       </section>
-      <ChatRoom/>
-      
-      <form>
+      <ChatRoom />
+
+      {/* CleverProgrammer */}
+      {/* <form>
         <FormControl>
           <InputLabel>Enter a message..</InputLabel>
           <Input
@@ -96,7 +97,9 @@ function App() {
           </Button>
         </FormControl>
       </form>
-      {/* messages */}
+      
+    */}
+      {/* messages  */}
 
       {/* {messages.map((message) => (
         <Message message={message} username={username} />
