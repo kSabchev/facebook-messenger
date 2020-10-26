@@ -73,24 +73,26 @@ function ChatRoom() {
 
       </form> */}
 
-      <form>
-        <FormControl>
-          <InputLabel>Enter a message..</InputLabel>
-          <Input
-            value={formValue}
-            onChange={(event) => setFormValue(event.target.value)}
-          />
-          <Button
-            disabled={!formValue}
-            variant="contained"
-            color="primary"
-            type="submit"
-            onClick={sendMessage}
-          >
-            Send Message
-          </Button>
-        </FormControl>
-      </form>
+      {user && (
+        <form>
+          <FormControl>
+            <InputLabel>Enter a message..</InputLabel>
+            <Input
+              value={formValue}
+              onChange={(event) => setFormValue(event.target.value)}
+            />
+            <Button
+              disabled={!formValue}
+              variant="contained"
+              color="primary"
+              type="submit"
+              onClick={sendMessage}
+            >
+              Send Message
+            </Button>
+          </FormControl>
+        </form>
+      )}
     </>
   );
 }
